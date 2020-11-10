@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+    web:
+        build:
+            context: .
+        ports:
+            - "8000:80"
+        volumes:
+            - ./src:/var/www/html/
+        environment:
+            MYSQL_ROOT_PASSWORD: Aa123456
+    db:
+        image: mariadb
+        volumes:
+            - ./mysql-dump:/docker-entrypoint-initdb.d
+        environment:
+            MYSQL_ROOT_PASSWORD: Aa123456
+    phpmyadmin:
+        ports:
+            - "8001:80"
+        image: phpmyadmin/phpmyadmin
+        environment:
+            PMA_HOST: db
+            MYSQL_ROOT_PASSWORD: Aa123456
